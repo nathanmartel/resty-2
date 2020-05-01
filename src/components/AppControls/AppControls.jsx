@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Results from '../Results/Results';
 
 const AppControls = () => {
   const [url, setUrl] = useState('');
   const [reqType, setReqType] = useState('GET');
   const [reqBody, setReqBody] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [res, setRes] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`${reqType} | ${url} | ${reqBody} `);
+    const reqInit = {
+      method: reqType,
+      body: reqBody,
+    };
+    if(reqType === 'GET') delete reqInit.body;
+    fetch(url, reqInit)
+      .then(res => res.json())
+      .then(json => setRes(json));
   };
+
+  // useEffect({
+
+  // }, [res]);
 
   return (
     <>
@@ -35,6 +49,9 @@ const AppControls = () => {
 
         <button type="submit">Submit</button>
       </form>
+      < hr />
+      <p>Results:</p>
+      { res.map((item, index) => <Results key={index} item={res} />) }
     </>
   );
 };
