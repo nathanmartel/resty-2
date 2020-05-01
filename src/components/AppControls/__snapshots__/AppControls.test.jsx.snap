@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppControls component renders AppControls 1`] = `
+<Fragment>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      URL:
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <label>
+      <input
+        checked={false}
+        id="reqType-get"
+        name="reqType"
+        onChange={[Function]}
+        type="radio"
+        value="GET"
+      />
+      GET
+    </label>
+    <label>
+      <input
+        checked={false}
+        id="reqType-post"
+        name="reqType"
+        onChange={[Function]}
+        type="radio"
+        value="POST"
+      />
+      POST
+    </label>
+    <label>
+      Body:
+      <input
+        onChange={[Function]}
+        type="textarea"
+        value=""
+      />
+    </label>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</Fragment>
+`;

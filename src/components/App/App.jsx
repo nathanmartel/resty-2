@@ -1,6 +1,12 @@
 import React from 'react';
+import Header from '../Header/Header';
+import AppControls from '../AppControls/AppControls';
 
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <>
+      <Header />
+      <AppControls />
+    </>
+  );
 }
-  
