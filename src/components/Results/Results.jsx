@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const Results = (item) => {
   return (
@@ -11,8 +11,8 @@ const Results = (item) => {
   );
 };
 
-Results.propTypes = {
-  item: PropTypes.object.isRequired
-};
+// Results.propTypes = {
+//   item: PropTypes.array.isRequired
+// };
 
 export default Results;

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main component renders Main 1`] = `
+<Fragment>
+  <Controls
+    onBodyChange={[Function]}
+    onReqTypeChange={[Function]}
+    onSubmit={[Function]}
+    onUrlChange={[Function]}
+    reqBody=""
+    reqType="GET"
+    url=""
+  />
+  <Results
+    item={Array []}
+  />
+</Fragment>
+`;

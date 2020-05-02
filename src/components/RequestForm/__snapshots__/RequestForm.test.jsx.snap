@@ -56,3 +56,62 @@ exports[`AppControls component renders AppControls 1`] = `
   <pre />
 </Fragment>
 `;
+
+exports[`RequestForm component renders RequestForm 1`] = `
+<Fragment>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      URL:
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <br />
+    <label>
+      <input
+        checked={true}
+        id="reqType-get"
+        name="reqType"
+        onChange={[Function]}
+        type="radio"
+        value="GET"
+      />
+      GET
+    </label>
+    <label>
+      <input
+        checked={false}
+        id="reqType-post"
+        name="reqType"
+        onChange={[Function]}
+        type="radio"
+        value="POST"
+      />
+      POST
+    </label>
+    <br />
+    <label>
+      Body:
+      <textarea
+        onChange={[Function]}
+        rows="10"
+        value=""
+      />
+    </label>
+    <br />
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+  <hr />
+  <p>
+    Results:
+  </p>
+</Fragment>
+`;
