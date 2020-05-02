@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import RequestForm from '../../components/RequestForm/RequestForm';
 import HistoryList from '../HistoryList/HistoryList';
-import './main.css';
+import styles from './Main.css';
 
 const Main = () => {
   const [url, setUrl] = useState('http://jsonplaceholder.typicode.com/posts/1');
@@ -41,15 +41,17 @@ const Main = () => {
     <>
       <main>
         <HistoryList history={history} />
-        <RequestForm 
-          url={url} 
-          reqType={reqType} 
-          reqBody={reqBody}
-          onUrlChange={handleUrlChange}
-          onReqTypeChange={handleReqTypeChange}
-          onReqBodyChange={handleReqBodyChange}
-          onSubmit={handleSubmit}  />
-        <ResultsContainer res={res} test='test' />
+        <section>
+          <RequestForm 
+            url={url} 
+            reqType={reqType} 
+            reqBody={reqBody}
+            onUrlChange={handleUrlChange}
+            onReqTypeChange={handleReqTypeChange}
+            onReqBodyChange={handleReqBodyChange}
+            onSubmit={handleSubmit}  />
+          <ResultsContainer res={res} test='test' />
+        </section>
       </main>
     </>
   );

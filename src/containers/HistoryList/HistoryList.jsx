@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HistoryItem from '../../components/HistoryItem/HistoryItem';
-import './HistoryList.css';
+import styles from './HistoryList.css';
 
 const HistoryContainer = ({ history }) => {
 
@@ -9,8 +9,9 @@ const HistoryContainer = ({ history }) => {
   
   return (
     <>
-      <div className="historyContainer">
+      <div className={styles.historyContainer}>
         <h3>History</h3>
+        <hr />
         {historyObj}
       </div>
     </>

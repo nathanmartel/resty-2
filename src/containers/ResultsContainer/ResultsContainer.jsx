@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Results from '../../components/Results/Results';
-import './ResultsContainer.css';
+import styles from './ResultsContainer.css';
 
 const ResultsContainer = ({ res }) => {
 
@@ -9,8 +9,9 @@ const ResultsContainer = ({ res }) => {
   
   return (
     <>
-      <div className="resultsContainer">
+      <div className={styles.resultsContainer}>
         <h3>Results</h3>
+        <hr />
         {resultsObj}
       </div>
     </>

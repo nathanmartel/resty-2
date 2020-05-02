@@ -1,13 +1,6 @@
-h3 { 
-  margin-top: 30px;
-  color: #666; 
-}
-
 .resultsContainer {
-  margin-top: 2rem;
-  background-color: #222;
+  background-color: #eee;
   padding: 1.5rem;
   width: 100%;
-  min-height: 200px;
 }
 

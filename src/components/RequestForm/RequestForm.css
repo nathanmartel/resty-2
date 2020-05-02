@@ -1,9 +1,18 @@
-input[type=text], textarea {
-  width: 600px;
+input[type=text], textarea, label {
+  width: 100%;
 }
 
-label>input[type=radio] {
-  margin-left: 20px;
-  margin-right: 10px;
+.radioControls {
+  margin: 1rem 0;
+  label {
+    width: auto;
+  }
+  label>input[type=radio] {
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+  label:first-of-type>input[type=radio] {
+    margin-left: 0px;
+  }
 }
 
