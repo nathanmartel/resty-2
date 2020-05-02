@@ -1,18 +1,20 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import ReactJson from 'react-json-view';
+import PropTypes from 'prop-types';
 
 const Results = ({ item }) => {
   return (
     <>
-      <pre>
+      <ReactJson src={item} name={false} displayDataTypes={false} />);
+      {/* <pre>
         { JSON.stringify(item) }
-      </pre>
+      </pre> */}
     </>
   );
 };
 
-// Results.propTypes = {
-//   item: PropTypes.array.isRequired
-// };
+Results.propTypes = {
+  item: PropTypes.object.isRequired
+};
 
 export default Results;

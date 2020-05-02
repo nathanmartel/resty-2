@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Results from '../../components/Results/Results';
-import ReactJson from 'react-json-view';
+import Results from '../../components/Results/Results';
+import './ResultsContainer.css';
 
 const ResultsContainer = ({ res }) => {
 
-  // const resultsObj = res.map((item, index) => <Results key={index} item={item}/>);
-  // Use prettier results from library instead:
-  const resultsObj = res.map((item, index) => <ReactJson key={index} src={item} name={false} displayDataTypes={false} />);
-
+  const resultsObj = res.map((item, index) => <Results key={index} item={item}/>);
+  
   return (
     <>
-      {resultsObj}
+      <div className="resultsContainer">
+        <h3>Results</h3>
+        {resultsObj}
+      </div>
     </>
   );
 };

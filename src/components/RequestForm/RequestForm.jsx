@@ -34,7 +34,7 @@ const RequestForm = ({ url, reqType, reqBody, onUrlChange, onReqTypeChange, onRe
       <br />
 
       <label>Body:
-        <textarea rows="10" value={reqBody} onChange={onReqBodyChange} />
+        <textarea rows="5" value={reqBody} onChange={onReqBodyChange} />
       </label>
       <br />
 
