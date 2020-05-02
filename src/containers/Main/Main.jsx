@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import RequestForm from '../../components/RequestForm/RequestForm';
+import './Main.css';
 
 const Main = () => {
-  const [url, setUrl] = useState('https://poegram.herokuapp.com/api/v1/poegrams/random');
+  const [url, setUrl] = useState('http://jsonplaceholder.typicode.com/posts');
   const [reqType, setReqType] = useState('GET');
   const [reqBody, setReqBody] = useState('');
   const [res, setRes] = useState([]);
@@ -27,15 +28,17 @@ const Main = () => {
 
   return (
     <>
-      <RequestForm 
-        url={url} 
-        reqType={reqType} 
-        reqBody={reqBody}
-        onUrlChange={handleUrlChange}
-        onReqTypeChange={handleReqTypeChange}
-        onReqBodyChange={handleReqBodyChange}
-        onSubmit={handleSubmit}  />
-      <ResultsContainer res={res} test='test' />
+      <main>
+        <RequestForm 
+          url={url} 
+          reqType={reqType} 
+          reqBody={reqBody}
+          onUrlChange={handleUrlChange}
+          onReqTypeChange={handleReqTypeChange}
+          onReqBodyChange={handleReqBodyChange}
+          onSubmit={handleSubmit}  />
+        <ResultsContainer res={res} test='test' />
+      </main>
     </>
   );
 };

@@ -1,0 +1,9 @@
+input[type=text], textarea {
+  width: 600px;
+}
+
+label>input[type=radio] {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+

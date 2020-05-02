@@ -1,11 +1,11 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-const Results = (item) => {
+const Results = ({ item }) => {
   return (
     <>
       <pre>
-        {JSON.stringify(item)}
+        { JSON.stringify(item) }
       </pre>
     </>
   );
