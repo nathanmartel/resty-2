@@ -1,3 +1,5 @@
 main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
   padding: 1.5rem;
 }
