@@ -109,7 +109,7 @@ const Main = () => {
   useEffect(() => {
     console.log('in UseEffect');
     const lsHistory = JSON.parse(localStorage.getItem('history'));
-    if(lsHistory) setHistory(lsHistory);
+    lsHistory ? setHistory(lsHistory) : setHistory([]);
   }, [res]);
 
 

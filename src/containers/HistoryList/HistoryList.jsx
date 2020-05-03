@@ -20,7 +20,9 @@ const HistoryContainer = ({ history, onLoadHistoryItemClick, onClearHistoryClick
         <h3>History</h3>
         <hr />
         {historyObj}
-        <button onClick={onClearHistoryClick}>Clear History</button>
+        {history.length > 0 && 
+          <button onClick={onClearHistoryClick}>Clear History</button> 
+        }
       </div>
     </>
   );
