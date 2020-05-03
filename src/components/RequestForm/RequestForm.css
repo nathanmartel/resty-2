@@ -1,11 +1,15 @@
 input[type=text], textarea, label {
   width: 100%;
+  display: block;
 }
+
+::placeholder { color: #AAA; }
 
 .radioControls {
   margin: 1rem 0;
   label {
     width: auto;
+    display: inline-block;
   }
   label>input[type=radio] {
     margin-left: 20px;
@@ -14,5 +18,25 @@ input[type=text], textarea, label {
   label:first-of-type>input[type=radio] {
     margin-left: 0px;
   }
+}
+
+.authHeaders {
+  background-color: #f6f6f6;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  div { margin-bottom: .5rem; }
+  select { display: block; }
+  legend {
+    font-size: 1em;
+    margin-bottom: 0;
+  }
+  input[type=text] {
+    width: 50%;
+    display: inline-block;
+  }
+  .bearerToken input[type=text] {
+    width: 100%;
+  }
+
 }
 

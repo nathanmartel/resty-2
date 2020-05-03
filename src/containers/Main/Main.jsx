@@ -5,52 +5,139 @@ import HistoryList from '../HistoryList/HistoryList';
 import styles from './Main.css';
 
 const Main = () => {
-  const [url, setUrl] = useState('http://jsonplaceholder.typicode.com/posts/1');
-  const [reqType, setReqType] = useState('GET');
-  const [reqBody, setReqBody] = useState('');
-  const [res, setRes] = useState([]);
+  const [url, setUrl] = useState('http://jsonplaceholder.typicode.com/posts');
+  const [method, setMethod] = useState('GET');
+  const [body, setBody] = useState('');
+  const [authType, setAuthType] = useState('');
+  const [authUsername, setAuthUsername] = useState('');
+  const [authPassword, setAuthPassword] = useState('');
+  const [authToken, setAuthToken] = useState('');
+  const [authUsernamePlaceholder, setAuthUsernamePlaceholder] = useState('Username');
+  const [authPasswordPlaceholder, setAuthPasswordPlaceholder] = useState('Password');
+  const [authTokenPlaceholder, setAuthTokenPlaceholder] = useState('Bearer Token');
   const [history, setHistory] = useState([]);
+  const [res, setRes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleUrlChange = (e) => setUrl(e.target.value);
-  const handleReqTypeChange = (e) => setReqType(e.target.value);
-  const handleReqBodyChange = (e) => setReqBody(e.target.value);
+  const handleMethodChange = (e) => setMethod(e.target.value);
+  const handleBodyChange = (e) => setBody(e.target.value);
+  const handleAuthTypeChange = (e) => setAuthType(e.target.value);
+  const handleAuthUsernameChange = (e) => setAuthUsername(e.target.value);
+  const handleAuthPasswordChange = (e) => setAuthPassword(e.target.value);
+  const handleAuthTokenChange = (e) => setAuthToken(e.target.value);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  function fetchRequest() {
     // Setup request
     const reqInit = {
-      method: reqType,
-      body: reqBody,
+      method: method,
     };
-    // Cannot submit a body on GET or DELETE requests, so remove key
-    if(reqType === 'GET' || reqType === 'DELETE') delete reqInit.body;
-    fetch(url, reqInit)
-      .then(res => res.json())
-      .then(json => Array.isArray(json) ? setRes(json) : setRes([json])); 
+
+    // Add body if requested
+    if(body) reqInit.body = JSON.parse(body);
     
-    // Create a history item and update request history
+    // Add headers if requested
+    if(authType === 'basic') {
+      const encodedData = btoa(`${authUsername} ${authPassword}`);  
+      const myHeaders = new Headers;
+      myHeaders.append('Authorization', `Basic ${encodedData}`);
+      reqInit.headers = myHeaders; 
+    }
+    if(authType === 'bearerToken') {
+      const myHeaders = new Headers;
+      myHeaders.append('Authorization', `Bearer ${authToken}`);
+      reqInit.headers = myHeaders; 
+    }
+
+    // Send that request!
+    fetch(url, reqInit)
+      .then(res => { 
+        if(!res.ok) throw Error(res.statusText);
+        else return res;
+      })
+      .then(res => res.json())
+      // Make sure response is in array form
+      .then(json => Array.isArray(json) ? setRes(json) : setRes([json]))
+      .catch(err => { setError(`${err}`); });
+  }
+
+  function addFetchToHistory() {
+    // Create a history item and update request history in localStorage
     const newHistoryItem = { 
       url: url,
-      reqType: reqType,
-      reqBody: reqBody
+      method: method,
+      body: body,
+      authType,
+      authUsername,
+      authPassword,
+      authToken
     };
-    setHistory(history => [...history, newHistoryItem]);
+  
+    let history;
+    history = JSON.parse(localStorage.getItem('history'));
+    if(history) history.push(newHistoryItem);
+    else history = [newHistoryItem];
+    localStorage.setItem('history', JSON.stringify(history));
+  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    fetchRequest();
+    setLoading(false);
+    addFetchToHistory();
   };
+
+  const handleLoadHistoryItemClick = (index) => {
+    const history = JSON.parse(localStorage.getItem('history'));
+    setUrl(history[index].url);
+    setMethod(history[index].method);
+    setBody(history[index].body);
+    setAuthType(history[index].authType);
+    setAuthUsername(history[index].authUsername);
+    setAuthPassword(history[index].authPassword);
+    setAuthToken(history[index].authToken);
+  };
+
+  const handleClearHistory = () => {
+    localStorage.removeItem('history');
+    setHistory([]);
+  }; 
+
+  useEffect(() => {
+    console.log('in UseEffect');
+    const lsHistory = JSON.parse(localStorage.getItem('history'));
+    if(lsHistory) setHistory(lsHistory);
+  }, [res]);
+
 
   return (
     <>
       <main>
-        <HistoryList history={history} />
+        <HistoryList history={history} onLoadHistoryItemClick={handleLoadHistoryItemClick} onClearHistoryClick={handleClearHistory} />
         <section>
           <RequestForm 
             url={url} 
-            reqType={reqType} 
-            reqBody={reqBody}
+            method={method} 
+            body={body}
             onUrlChange={handleUrlChange}
-            onReqTypeChange={handleReqTypeChange}
-            onReqBodyChange={handleReqBodyChange}
+            onMethodChange={handleMethodChange}
+            onBodyChange={handleBodyChange}
+            authType={authType}
+            authUsername={authUsername}
+            authPassword={authPassword}
+            authToken={authToken}
+            authUsernamePlaceholder={authUsernamePlaceholder}
+            authPasswordPlaceholder={authPasswordPlaceholder}
+            authTokenPlaceholder={authTokenPlaceholder}
+            onAuthTypeChange={handleAuthTypeChange}
+            onAuthUsernameChange={handleAuthUsernameChange}
+            onAuthPasswordChange={handleAuthPasswordChange}
+            onAuthTokenChange={handleAuthTokenChange}
             onSubmit={handleSubmit}  />
-          <ResultsContainer res={res} test='test' />
+          <ResultsContainer res={res} loading={loading} error={error} />
         </section>
       </main>
     </>
