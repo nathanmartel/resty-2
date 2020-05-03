@@ -1,64 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AppControls component renders AppControls 1`] = `
-<Fragment>
-  <form
-    onSubmit={[Function]}
-  >
-    <label>
-      URL:
-      <input
-        onChange={[Function]}
-        type="text"
-        value=""
-      />
-    </label>
-    <br />
-    <label>
-      <input
-        checked={true}
-        id="reqType-get"
-        name="reqType"
-        onChange={[Function]}
-        type="radio"
-        value="GET"
-      />
-      GET
-    </label>
-    <label>
-      <input
-        checked={false}
-        id="reqType-post"
-        name="reqType"
-        onChange={[Function]}
-        type="radio"
-        value="POST"
-      />
-      POST
-    </label>
-    <br />
-    <label>
-      Body:
-      <textarea
-        onChange={[Function]}
-        rows="10"
-        value=""
-      />
-    </label>
-    <br />
-    <button
-      type="submit"
-    >
-      Submit
-    </button>
-  </form>
-  <hr />
-  <pre />
-</Fragment>
-`;
-
 exports[`RequestForm component renders RequestForm 1`] = `
-<Fragment>
+<div
+  className="requestContainer"
+>
+  <h3>
+    Request
+  </h3>
   <form
     onSubmit={[Function]}
   >
@@ -67,51 +15,145 @@ exports[`RequestForm component renders RequestForm 1`] = `
       <input
         onChange={[Function]}
         type="text"
-        value=""
+        value="www.test.com"
       />
     </label>
-    <br />
-    <label>
-      <input
-        checked={true}
-        id="reqType-get"
-        name="reqType"
-        onChange={[Function]}
-        type="radio"
-        value="GET"
-      />
-      GET
-    </label>
-    <label>
-      <input
-        checked={false}
-        id="reqType-post"
-        name="reqType"
-        onChange={[Function]}
-        type="radio"
-        value="POST"
-      />
-      POST
-    </label>
-    <br />
+    <div
+      className="radioControls"
+    >
+      <label>
+        <input
+          checked={true}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="GET"
+        />
+        GET
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="POST"
+        />
+        POST
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="PATCH"
+        />
+        PATCH
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="PUT"
+        />
+        PUT
+      </label>
+      <label>
+        <input
+          checked={false}
+          name="method"
+          onChange={[Function]}
+          type="radio"
+          value="DELETE"
+        />
+        DELETE
+      </label>
+    </div>
     <label>
       Body:
       <textarea
         onChange={[Function]}
-        rows="10"
-        value=""
+        rows="5"
+        value="{ test: \\"test\\" }"
       />
     </label>
     <br />
+    <div
+      className="authHeaders"
+    >
+      <h4>
+        Headers
+      </h4>
+      <div
+        className="authSelect"
+      >
+        <label>
+          Authorization Type:
+          <select
+            onChange={[Function]}
+            value="none"
+          >
+            <option
+              value=""
+            >
+              None
+            </option>
+            <option
+              value="basic"
+            >
+              Basic Authorization
+            </option>
+            <option
+              value="bearerToken"
+            >
+              Bearer Token
+            </option>
+          </select>
+        </label>
+      </div>
+      <div
+        className="basicAuth"
+      >
+        <fieldset>
+          <legend>
+            Basic Authorization:
+          </legend>
+          <input
+            onChange={[Function]}
+            placeholder="Username"
+            type="text"
+            value=""
+          />
+          <input
+            onChange={[Function]}
+            placeholder="Password"
+            type="text"
+            value=""
+          />
+        </fieldset>
+      </div>
+      <div
+        className="bearerToken"
+      >
+        <label>
+          Bearer Token:
+          <input
+            onChange={[Function]}
+            placeholder="Token"
+            type="text"
+            value=""
+          />
+        </label>
+      </div>
+    </div>
     <button
       type="submit"
     >
       Submit
     </button>
   </form>
-  <hr />
-  <p>
-    Results:
-  </p>
-</Fragment>
+</div>
 `;

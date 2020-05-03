@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Result component renders Result 1`] = `
-<Fragment>
-  <pre>
-    {"item":{"test":"Lorem ipsum"}}
-  </pre>
-</Fragment>
-`;

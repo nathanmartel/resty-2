@@ -2,8 +2,32 @@
 
 exports[`Results component renders Results 1`] = `
 <Fragment>
-  <pre>
-    <Component />
-  </pre>
+  <t
+    collapseStringsAfterLength={false}
+    collapsed={false}
+    defaultValue={null}
+    displayDataTypes={false}
+    displayObjectSize={true}
+    enableClipboard={true}
+    groupArraysAfterLength={100}
+    iconStyle="triangle"
+    indentWidth={4}
+    name={false}
+    onAdd={false}
+    onDelete={false}
+    onEdit={false}
+    onSelect={false}
+    shouldCollapse={false}
+    sortKeys={false}
+    src={
+      Object {
+        "test": "Lorem ipsum",
+      }
+    }
+    style={Object {}}
+    theme="rjv-default"
+    validationMessage="Validation Error"
+  />
+  );
 </Fragment>
 `;

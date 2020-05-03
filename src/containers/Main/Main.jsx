@@ -116,7 +116,11 @@ const Main = () => {
   return (
     <>
       <main>
-        <HistoryList history={history} onLoadHistoryItemClick={handleLoadHistoryItemClick} onClearHistoryClick={handleClearHistory} />
+        <HistoryList 
+          history={history} 
+          onLoadHistoryItemClick={handleLoadHistoryItemClick} 
+          onClearHistoryClick={handleClearHistory} 
+        />
         <section>
           <RequestForm 
             url={url} 
@@ -136,8 +140,13 @@ const Main = () => {
             onAuthUsernameChange={handleAuthUsernameChange}
             onAuthPasswordChange={handleAuthPasswordChange}
             onAuthTokenChange={handleAuthTokenChange}
-            onSubmit={handleSubmit}  />
-          <ResultsContainer res={res} loading={loading} error={error} />
+            onSubmit={handleSubmit}  
+          />
+          <ResultsContainer 
+            res={res} 
+            loading={loading} 
+            error={error} 
+          />
         </section>
       </main>
     </>
