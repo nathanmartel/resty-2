@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { AppContext, useDispatch, useUrl, useMethod, useBody, useAuthType, useAuthUsername, useAuthPassword, useAuthToken, useAuthUsernamePlaceholder, useAuthPasswordPlaceholder, useAuthTokenPlaceholder, useRes, useLoading, useError } from '../../hooks/AppProvider/AppProvider';
-import ResultsContainer from '../ResultsContainer/ResultsContainer';
+import { addFetchToHistory } from '../HistoryList/HistoryList';
 import RequestForm from '../../components/RequestForm/RequestForm';
-import HistoryList from '../HistoryList/HistoryList';
-import styles from './Main.css';
+import styles from './FormContainer.css';
 
 
-const Main = () => {
+const FormContainer = () => {
   
   // Why doesn't this work???
   // const { url, method, body, authType, authUsername, authPassword, authToken } = useContext(AppContext);
@@ -14,7 +13,7 @@ const Main = () => {
   // const { history } = useContext(AppContext);
   // const { res, loading, error } = useContext(AppContext);
 
-  // Is this seriously necessary?
+  // ... It seems like this shouldn't be necessary?
   const url = useUrl();
   const method = useMethod();
   const body = useBody();
@@ -25,9 +24,6 @@ const Main = () => {
   const authUsernamePlaceholder = useAuthUsernamePlaceholder();
   const authPasswordPlaceholder = useAuthPasswordPlaceholder();
   const authTokenPlaceholder = useAuthTokenPlaceholder();
-  const res = useRes();
-  const loading = useLoading();
-  const error = useError();
   const dispatch = useDispatch();
   
   const handleUrlChange = ({ target }) => dispatch({ type: 'SET_URL', payload: target.value });
@@ -73,25 +69,6 @@ const Main = () => {
         : dispatch({ type: 'SET_RES', payload: [json] }))
       .catch(err => dispatch({ type: 'SET_ERROR', payload: err }));
   }
-
-  // function addFetchToHistory() {
-  //   // Create a history item and update request history in localStorage
-  //   const newHistoryItem = { 
-  //     url: url,
-  //     method: method,
-  //     body: body,
-  //     authType,
-  //     authUsername,
-  //     authPassword,
-  //     authToken
-  //   };
-  
-  //   let history;
-  //   history = JSON.parse(localStorage.getItem('history'));
-  //   if(history) history.push(newHistoryItem);
-  //   else history = [newHistoryItem];
-  //   localStorage.setItem('history', JSON.stringify(history));
-  // }
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,50 +76,32 @@ const Main = () => {
     dispatch({ type: 'SET_ERROR', payload: '' });
     fetchRequest();
     dispatch({ type: 'SET_LOADING', payload: false });
-    // addFetchToHistory();
+    addFetchToHistory();
   };
 
 
-  // useEffect(() => {
-  //   console.log('in UseEffect');
-  //   const lsHistory = JSON.parse(localStorage.getItem('history'));
-  //   lsHistory ? setHistory(lsHistory) : setHistory([]);
-  // }, [res]);
-
-
   return (
-    <main>
-      <HistoryList />
-      
-      <section>
-        <RequestForm 
-          url={url} 
-          onUrlChange={handleUrlChange}
-          method={method} 
-          body={body}
-          onMethodChange={handleMethodChange}
-          onBodyChange={handleBodyChange}
-          authType={authType}
-          authUsername={authUsername}
-          authPassword={authPassword}
-          authToken={authToken}
-          authUsernamePlaceholder={authUsernamePlaceholder}
-          authPasswordPlaceholder={authPasswordPlaceholder}
-          authTokenPlaceholder={authTokenPlaceholder}
-          onAuthTypeChange={handleAuthTypeChange}
-          onAuthUsernameChange={handleAuthUsernameChange}
-          onAuthPasswordChange={handleAuthPasswordChange}
-          onAuthTokenChange={handleAuthTokenChange}
-          onSubmit={handleSubmit}  
-        />
-        <ResultsContainer 
-          res={res} 
-          loading={loading} 
-          error={error} 
-        />
-      </section>
-    </main>
+    <RequestForm 
+      url={url} 
+      onUrlChange={handleUrlChange}
+      method={method} 
+      body={body}
+      onMethodChange={handleMethodChange}
+      onBodyChange={handleBodyChange}
+      authType={authType}
+      authUsername={authUsername}
+      authPassword={authPassword}
+      authToken={authToken}
+      authUsernamePlaceholder={authUsernamePlaceholder}
+      authPasswordPlaceholder={authPasswordPlaceholder}
+      authTokenPlaceholder={authTokenPlaceholder}
+      onAuthTypeChange={handleAuthTypeChange}
+      onAuthUsernameChange={handleAuthUsernameChange}
+      onAuthPasswordChange={handleAuthPasswordChange}
+      onAuthTokenChange={handleAuthTokenChange}
+      onSubmit={handleSubmit}  
+    />
   );
 };
 
-export default Main;
+export default FormContainer;

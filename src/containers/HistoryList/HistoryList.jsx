@@ -1,28 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useUrl, useMethod, useBody, useAuthType, useAuthUsername, useAuthPassword, useAuthToken, useRes, useHistory } from '../../hooks/AppProvider/AppProvider';
 import HistoryItem from '../../components/HistoryItem/HistoryItem';
-import { useHistory, useDispatch } from '../../hooks/AppProvider/AppProvider';
 import styles from './HistoryList.css';
 
-const HistoryContainer = () => {
+const url = useUrl();
+const method = useMethod();
+const body = useBody();
+const authType = useAuthType();
+const authUsername = useAuthUsername();
+const authPassword = useAuthPassword();
+const authToken = useAuthToken();
+const res = useRes();
+const dispatch = useDispatch();
+const history = useHistory();
 
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const handleLoadHistoryItemClick = (index) => {
-    const history = JSON.parse(localStorage.getItem('history'));
-    dispatch({ type: 'SET_URL', payload: history[index].url });
-    dispatch({ type: 'SET_METHOD', payload: history[index].method });
-    dispatch({ type: 'SET_BODY', payload: history[index].body });
-    dispatch({ type: 'SET_AUTHTYPE', payload: history[index].authType });
-    dispatch({ type: 'SET_AUTHUSERNAME', payload: history[index].authUsername });
-    dispatch({ type: 'SET_AUTHPASSWORD', payload: history[index].authPassword });
-    dispatch({ type: 'SET_AUTHTOKEN', payload: history[index].authToken });
+export function addFetchToHistory() {
+  // Create a history item and update request history in localStorage
+  const newHistoryItem = { 
+    url: url,
+    method: method,
+    body: body,
+    authType,
+    authUsername,
+    authPassword,
+    authToken
   };
 
-  const handleClearHistory = () => {
-    localStorage.removeItem('history');
-    dispatch({ type: 'CLEAR_HISTORY', payload: [] });
-  }; 
+  let history;
+  history = JSON.parse(localStorage.getItem('history'));
+  if(history) history.push(newHistoryItem);
+  else history = [newHistoryItem];
+  localStorage.setItem('history', JSON.stringify(history));
+}
+
+const handleLoadHistoryItemClick = (index) => {
+  const history = JSON.parse(localStorage.getItem('history'));
+  dispatch({ type: 'SET_URL', payload: history[index].url });
+  dispatch({ type: 'SET_METHOD', payload: history[index].method });
+  dispatch({ type: 'SET_BODY', payload: history[index].body });
+  dispatch({ type: 'SET_AUTHTYPE', payload: history[index].authType });
+  dispatch({ type: 'SET_AUTHUSERNAME', payload: history[index].authUsername });
+  dispatch({ type: 'SET_AUTHPASSWORD', payload: history[index].authPassword });
+  dispatch({ type: 'SET_AUTHTOKEN', payload: history[index].authToken });
+};
+
+const handleClearHistory = () => {
+  localStorage.removeItem('history');
+  dispatch({ type: 'CLEAR_HISTORY', payload: [] });
+}; 
+
+const HistoryContainer = () => {
 
   const historyObj = history.map((item, index) => 
     <HistoryItem 
@@ -33,6 +60,13 @@ const HistoryContainer = () => {
       onLoadHistoryItemClick={handleLoadHistoryItemClick} 
     />);
 
+  useEffect(() => {
+    const lsHistory = JSON.parse(localStorage.getItem('history'));
+    lsHistory 
+      ? dispatch({ type: 'SET_HISTORY', payload: lsHistory }) 
+      : dispatch({ type: 'SET_HISTORY', payload: [] });
+  }, [res]);
+  
   return (
     <>
       <div className={styles.historyContainer}>
