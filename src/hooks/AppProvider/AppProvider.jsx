@@ -1,7 +1,7 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-const AppContext = createContext;
+export const AppContext = createContext();
 
 const initialState = {
   url: 'http://jsonplaceholder.typicode.com/posts',
@@ -20,10 +20,10 @@ const initialState = {
   error: '',
 };
 
-function reducer(state, action) {
+export function reducer(state, action) {
   switch(action.type) {
-    // case 'increment':
-    //   return { count: state.count + 1 };
+    case 'SET_URL':
+      return action.payload;
     // case 'decrement':
     //   return { count: state.count - 1 };
     default:
@@ -55,4 +55,9 @@ export const AppProvider = ({ children }) => {
 
 AppProvider.propTypes = {
   children: PropTypes.node
+};
+
+export const useDispatch = () => {
+  const { dispatch } = useContext(AppContext);
+  return dispatch;
 };
