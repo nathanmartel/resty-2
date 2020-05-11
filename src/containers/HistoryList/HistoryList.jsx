@@ -1,9 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import HistoryItem from '../../components/HistoryItem/HistoryItem';
+import { useHistory, useDispatch } from '../../hooks/AppProvider/AppProvider';
 import styles from './HistoryList.css';
 
-const HistoryContainer = ({ history, onLoadHistoryItemClick, onClearHistoryClick }) => {
+const HistoryContainer = () => {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLoadHistoryItemClick = (index) => {
+    const history = JSON.parse(localStorage.getItem('history'));
+    dispatch({ type: 'SET_URL', payload: history[index].url });
+    dispatch({ type: 'SET_METHOD', payload: history[index].method });
+    dispatch({ type: 'SET_BODY', payload: history[index].body });
+    dispatch({ type: 'SET_AUTHTYPE', payload: history[index].authType });
+    dispatch({ type: 'SET_AUTHUSERNAME', payload: history[index].authUsername });
+    dispatch({ type: 'SET_AUTHPASSWORD', payload: history[index].authPassword });
+    dispatch({ type: 'SET_AUTHTOKEN', payload: history[index].authToken });
+  };
+
+  const handleClearHistory = () => {
+    localStorage.removeItem('history');
+    dispatch({ type: 'CLEAR_HISTORY', payload: [] });
+  }; 
 
   const historyObj = history.map((item, index) => 
     <HistoryItem 
@@ -11,7 +30,7 @@ const HistoryContainer = ({ history, onLoadHistoryItemClick, onClearHistoryClick
       method={item.method} 
       url={item.url} 
       index={index} 
-      onLoadHistoryItemClick={onLoadHistoryItemClick} 
+      onLoadHistoryItemClick={handleLoadHistoryItemClick} 
     />);
 
   return (
@@ -21,17 +40,11 @@ const HistoryContainer = ({ history, onLoadHistoryItemClick, onClearHistoryClick
         <hr />
         {historyObj}
         {history.length > 0 && 
-          <button onClick={onClearHistoryClick}>Clear History</button> 
+          <button onClick={() => handleClearHistory}>Clear History</button> 
         }
       </div>
     </>
   );
-};
-
-HistoryContainer.propTypes = {
-  history: PropTypes.array.isRequired,
-  onLoadHistoryItemClick: PropTypes.func.isRequired,
-  onClearHistoryClick: PropTypes.func.isRequired
 };
 
 export default HistoryContainer;

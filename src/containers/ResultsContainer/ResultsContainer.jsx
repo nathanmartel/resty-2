@@ -12,7 +12,6 @@ const ResultsContainer = ({ res, loading, error }) => {
       <div className={styles.resultsContainer}>
         <h3>Results</h3>
         <hr />
-        {console.log('status of loading', loading) }
         { loading ? (
           <p>Loading...</p> 
         ) : (
