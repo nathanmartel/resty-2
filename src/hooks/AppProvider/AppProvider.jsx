@@ -14,7 +14,6 @@ const initialState = {
   authUsernamePlaceholder: 'Username',
   authPasswordPlaceholder: 'Password',
   authTokenPlaceholder: 'Bearer Token',
-  history: [],
   res: [],
   loading: false,
   error: '',
@@ -43,8 +42,6 @@ export function reducer(state, action) {
     case 'SET_RES':
       return { ...state, res: action.payload };
     
-
-
     default:
       throw new Error();
   }
@@ -140,7 +137,7 @@ export const useError = () => {
   return error;
 };
 
-export const useHistory = () => {
-  const { history } = useState();
+export const useLSHistory = () => {
+  const history = JSON.parse(localStorage.getItem('history'));
   return history;
 };

@@ -1,6 +1,5 @@
 import React from 'react';
-import { AppContext, useDispatch, useUrl, useMethod, useBody, useAuthType, useAuthUsername, useAuthPassword, useAuthToken, useAuthUsernamePlaceholder, useAuthPasswordPlaceholder, useAuthTokenPlaceholder, useRes, useLoading, useError } from '../../hooks/AppProvider/AppProvider';
-import { addFetchToHistory } from '../HistoryList/HistoryList';
+import { useDispatch, useUrl, useMethod, useBody, useAuthType, useAuthUsername, useAuthPassword, useAuthToken, useAuthUsernamePlaceholder, useAuthPasswordPlaceholder, useAuthTokenPlaceholder, useLSHistory } from '../../hooks/AppProvider/AppProvider';
 import RequestForm from '../../components/RequestForm/RequestForm';
 import styles from './FormContainer.css';
 
@@ -24,6 +23,7 @@ const FormContainer = () => {
   const authUsernamePlaceholder = useAuthUsernamePlaceholder();
   const authPasswordPlaceholder = useAuthPasswordPlaceholder();
   const authTokenPlaceholder = useAuthTokenPlaceholder();
+  const history = useLSHistory();
   const dispatch = useDispatch();
   
   const handleUrlChange = ({ target }) => dispatch({ type: 'SET_URL', payload: target.value });
@@ -35,9 +35,10 @@ const FormContainer = () => {
   const handleAuthTokenChange = ({ target }) => dispatch({ type: 'SET_AUTHTOKEN', payload: target.value });
 
   function fetchRequest() {
+    console.log('in fetchRequest');
     // Setup request
     const reqInit = {
-      method: method,
+      method: method
     };
 
     // Add body if requested
@@ -69,6 +70,30 @@ const FormContainer = () => {
         : dispatch({ type: 'SET_RES', payload: [json] }))
       .catch(err => dispatch({ type: 'SET_ERROR', payload: err }));
   }
+
+  // Create a history item and update request history in localStorage
+  function addFetchToHistory() {
+
+    const newHistoryItem = { 
+      url,
+      method,
+      body,
+      authType,
+      authUsername,
+      authPassword,
+      authToken
+    };
+
+    console.log('in useAddFetchToHistory');
+    let newHistory;
+    if(history) {
+      newHistory = history;
+      newHistory.push(newHistoryItem);
+      localStorage.setItem('history', JSON.stringify(newHistory));
+    } else {
+      localStorage.setItem('history', JSON.stringify([newHistoryItem]));
+    }
+  }
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,6 +101,7 @@ const FormContainer = () => {
     dispatch({ type: 'SET_ERROR', payload: '' });
     fetchRequest();
     dispatch({ type: 'SET_LOADING', payload: false });
+    console.log('submitting!');
     addFetchToHistory();
   };
 
