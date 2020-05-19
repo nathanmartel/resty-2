@@ -1,9 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useLSHistory } from '../../hooks/AppProvider/AppProvider';
+import { useLoadHistoryItem } from '../../hooks/History/History';
 import HistoryItem from '../../components/HistoryItem/HistoryItem';
 import styles from './HistoryList.css';
 
-const HistoryContainer = ({ history, onLoadHistoryItemClick, onClearHistoryClick }) => {
+const HistoryContainer = () => {
+
+  const history = useLSHistory();
+
+  const handleClearHistory = () => {
+    localStorage.setItem('history', JSON.stringify([]));
+  }; 
 
   const historyObj = history.map((item, index) => 
     <HistoryItem 
@@ -11,9 +18,9 @@ const HistoryContainer = ({ history, onLoadHistoryItemClick, onClearHistoryClick
       method={item.method} 
       url={item.url} 
       index={index} 
-      onLoadHistoryItemClick={onLoadHistoryItemClick} 
+      onLoadHistoryItemClick={() => useLoadHistoryItem(index)} 
     />);
-
+  
   return (
     <>
       <div className={styles.historyContainer}>
@@ -21,17 +28,11 @@ const HistoryContainer = ({ history, onLoadHistoryItemClick, onClearHistoryClick
         <hr />
         {historyObj}
         {history.length > 0 && 
-          <button onClick={onClearHistoryClick}>Clear History</button> 
+          <button onClick={() => handleClearHistory()}>Clear History</button> 
         }
       </div>
     </>
   );
-};
-
-HistoryContainer.propTypes = {
-  history: PropTypes.array.isRequired,
-  onLoadHistoryItemClick: PropTypes.func.isRequired,
-  onClearHistoryClick: PropTypes.func.isRequired
 };
 
 export default HistoryContainer;

@@ -3,6 +3,12 @@
 exports[`App component renders App 1`] = `
 <Fragment>
   <Header />
-  <Main />
+  <main>
+    <HistoryContainer />
+    <section>
+      <FormContainer />
+      <ResultsContainer />
+    </section>
+  </main>
 </Fragment>
 `;

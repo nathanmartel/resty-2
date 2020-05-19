@@ -1,18 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Results from '../../components/Results/Results';
+import { useRes, useLoading, useError } from '../../hooks/AppProvider/AppProvider';
 import styles from './ResultsContainer.css';
 
-const ResultsContainer = ({ res, loading, error }) => {
+
+const ResultsContainer = () => {
+
+  const res = useRes();
+  const loading = useLoading();
+  const error = useError();
 
   const resultsObj = res.map((item, index) => <Results key={index} item={item}/>);
-  
+
   return (
     <>
       <div className={styles.resultsContainer}>
         <h3>Results</h3>
         <hr />
-        {console.log('status of loading', loading) }
         { loading ? (
           <p>Loading...</p> 
         ) : (
@@ -22,12 +26,6 @@ const ResultsContainer = ({ res, loading, error }) => {
       </div>
     </>
   );
-};
-
-ResultsContainer.propTypes = {
-  res: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired
 };
 
 export default ResultsContainer;
